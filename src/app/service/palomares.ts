@@ -19,27 +19,32 @@ export class PalomaresService {
     if (direction === '') {
       direction = 'asc';
     }
-    return this.oHttp.get<IPage<IPalomares>>(serverURL + `/palomares?page=${page}&size=${rpp}&sort=${order},${direction}`);
+    const url = serverURL + `/Ian?page=${page}&size=${rpp}&sort=${order},${direction}`;
+    console.log('PalomaresService - Llamando a:', url);
+    return this.oHttp.get<IPage<IPalomares>>(url);
   }
 
   get(id: number): Observable<IPalomares> {
-    return this.oHttp.get<IPalomares>(serverURL + '/palomares/' + id);
+    return this.oHttp.get<IPalomares>(serverURL + '/Ian/' + id);
   }
 
-  create(palomares: Partial<IPalomares>): Observable<number> {
-    return this.oHttp.post<number>(serverURL + '/palomares', palomares);
+  create(palomares: Partial<IPalomares>): Observable<IPalomares> {
+    const url = serverURL + '/Ian';
+    console.log('PalomaresService - Creando tarea en:', url);
+    console.log('Datos a enviar:', palomares);
+    return this.oHttp.post<IPalomares>(url, palomares);
   }
 
-  update(palomares: Partial<IPalomares>): Observable<number> {
-    return this.oHttp.put<number>(serverURL + '/palomares', palomares);
+  update(palomares: Partial<IPalomares>): Observable<IPalomares> {
+    return this.oHttp.put<IPalomares>(serverURL + '/Ian/' + palomares.id, palomares);
   }
 
-  delete(id: number): Observable<number> {
-    return this.oHttp.delete<number>(serverURL + '/palomares/' + id);
+  delete(id: number): Observable<void> {
+    return this.oHttp.delete<void>(serverURL + '/Ian/' + id);
   }
 
   rellenaPalomares(numTareas: number): Observable<number> {
-    return this.oHttp.get<number>(serverURL + '/palomares/rellena/' + numTareas);
+    return this.oHttp.get<number>(serverURL + '/Ian/rellena/' + numTareas);
   }
 
 }

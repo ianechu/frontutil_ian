@@ -46,8 +46,13 @@ export class RoutedAdminNew implements OnInit {
   }
 
   onSubmit(): void {
+    console.log('Formulario submitted');
+    console.log('Formulario válido:', this.palomaresForm.valid);
+    console.log('Valores del formulario:', this.palomaresForm.value);
+    
     if (!this.palomaresForm.valid) {
       this.palomaresForm.markAllAsTouched();
+      console.log('Formulario no válido, mostrando errores');
       return;
     }
 
@@ -60,15 +65,20 @@ export class RoutedAdminNew implements OnInit {
       publicado: this.palomaresForm.value.publicado,
     };
 
+    console.log('Enviando payload:', payload);
+
     this.palomaresService.create(payload).subscribe({
-      next: () => {
+      next: (createdPalomares) => {
+        console.log('Tarea creada:', createdPalomares);
         this.submitting = false;
         this.router.navigate(['/palomares/plist']);
       },
       error: (err: HttpErrorResponse) => {
         this.submitting = false;
         this.error = 'Error al crear la tarea';
-        console.error(err);
+        console.error('Error al crear tarea:', err);
+        console.error('Status:', err.status);
+        console.error('Message:', err.message);
       },
     });
   }

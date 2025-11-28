@@ -23,7 +23,9 @@ export class RoutedAdminPlist {
   rellenaOk: number | null = null;
   rellenaError: string | null = null;
 
-  constructor(private oPalomaresService: PalomaresService) { }
+  constructor(private oPalomaresService: PalomaresService) {
+    console.log('RoutedAdminPlist - Constructor inicializado');
+  }
 
   oBotonera: string[] = [];
 
@@ -32,10 +34,22 @@ export class RoutedAdminPlist {
   }
 
   getPage() {
+    console.log('Llamando a getPage - Página:', this.numPage, 'RPP:', this.numRpp);
     this.oPalomaresService.getPage(this.numPage, this.numRpp).subscribe({
       next: (data: IPage<IPalomares>) => {
+        console.log('✅ Datos recibidos del servidor:', data);
+        console.log('📊 Estructura de data:', {
+          content: data.content,
+          totalElements: data.totalElements,
+          totalPages: data.totalPages,
+          number: data.number
+        });
+        console.log('📝 Contenido del array:', data.content);
+        console.log('📏 Longitud del array content:', data.content?.length);
+        
         this.oPage = data;
         this.rellenaOk = this.oPage.totalElements;
+        
         // si estamos en una página que supera el límite entonces nos situamos en la ultima disponible
         if (this.numPage > 0 && this.numPage >= data.totalPages) {
           this.numPage = data.totalPages - 1;
@@ -43,7 +57,10 @@ export class RoutedAdminPlist {
         }
       },
       error: (error: HttpErrorResponse) => {
-        console.error(error);
+        console.error('❌ Error al cargar datos:', error);
+        console.error('Status:', error.status);
+        console.error('Message:', error.message);
+        console.error('Error completo:', error);
       },
     });
   }
