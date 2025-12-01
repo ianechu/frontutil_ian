@@ -45,6 +45,14 @@ import { RoutedAlcanyizAdminEdit } from './component/alcanyiz/routed-alcanyiz-ad
 import { RoutedAlcanyizAdminRemove } from './component/alcanyiz/routed-alcanyiz-admin-remove/routed-alcanyiz-admin-remove';
 import { RoutedAlcanyizGame } from './component/alcanyiz/routed-alcanyiz-game/routed-alcanyiz-game';
 
+import { RoutedAdminPlistZanon } from './component/zanon/routed-admin-plist/routed-admin-plist';
+import { RoutedAdminViewZanon } from './component/zanon/routed-admin-view/routed-admin-view';
+import { RoutedUserPlistZanon } from './component/zanon/routed-user-plist/routed-user-plist';
+import { RoutedUserViewZanon } from './component/zanon/routed-user-view/routed-user-view';
+import { RoutedAdminEditZanon } from './component/zanon/routed-admin-edit/routed-admin-edit';
+import { RoutedAdminNewZanon } from './component/zanon/routed-admin-new/routed-admin-new';
+import { RoutedAdminRemoveZanon } from './component/zanon/routed-admin-remove/routed-admin-remove';
+
 export const routes: Routes = [
   { path: '', component: Home },
   { path: 'blog', component: RoutedUserPlist },
@@ -90,4 +98,12 @@ export const routes: Routes = [
   { path: 'soares/admin/new', component: SoaresRoutedAdminNew },
   { path: 'soares/admin/edit/:id', component: SoaresRoutedAdminEdit },
   { path: 'soares/admin/remove/:id', component: SoaresRoutedAdminRemove },
+
+  { path: 'zanon', component: RoutedUserPlistZanon},
+  { path: 'zanon/post/:id', component: RoutedUserViewZanon },
+  { path: 'zanon/plist', component: RoutedAdminPlistZanon },
+  { path: 'zanon/view/:id', component: RoutedAdminViewZanon },
+  { path: 'zanon/new', component: RoutedAdminNewZanon },
+  { path: 'zanon/edit/:id', component: RoutedAdminEditZanon },
+  { path: 'zanon/remove/:id', component: RoutedAdminRemoveZanon },
 ];
